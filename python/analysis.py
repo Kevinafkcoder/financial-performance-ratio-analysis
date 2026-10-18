@@ -54,5 +54,5 @@ df["revenue_growth"] = (
 df.to_csv("data/financial_metrics.csv", index=False) 
 
 print("\nProcessed financial metrics:")
-print(df.round(2).to_string(index=False))
+print(df.round(2).to_string(index=False)) 
 
