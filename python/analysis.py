@@ -15,15 +15,7 @@ df = df.drop_duplicates()
 df = df.dropna()
 
 # Convert year to integer
-df["year"] = df["year"].astype(int)
-
-# Remove rows with invalid financial values
-df = df[
-    (df["revenue"] > 0) &
-    (df["total_assets"] > 0) &
-    (df["shareholders_equity"] > 0) &
-    (df["current_liabilities"] > 0)
-]
+df["year"] = df["year"].astype(int) 
 
 print("Rows after cleaning:", len(df))
 print("Missing values after cleaning:")
