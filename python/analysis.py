@@ -1,16 +1,33 @@
 import pandas as pd
 
-df=pd.read_csv("data/financial_data.csv")
+df = pd.read_csv("data/financial_data.csv")
 
-#cleaning
-print("Rows:", len(df))
-print("Duplicate rows:", df.duplicated().sum())
-print("Missing values:")
+# Data cleaning
+print("Missing values before cleaning:")
 print(df.isnull().sum())
 
-df["year"] = df["year"].astype(int)
+print("Duplicate rows:", df.duplicated().sum())
+
+# Remove duplicate rows
 df = df.drop_duplicates()
 
+# Remove rows with missing values
+df = df.dropna()
+
+# Convert year to integer
+df["year"] = df["year"].astype(int)
+
+# Remove rows with invalid financial values
+df = df[
+    (df["revenue"] > 0) &
+    (df["total_assets"] > 0) &
+    (df["shareholders_equity"] > 0) &
+    (df["current_liabilities"] > 0)
+]
+
+print("Rows after cleaning:", len(df))
+print("Missing values after cleaning:")
+print(df.isnull().sum())
 
 # Financial metrics
 df["gross_profit"] = df["revenue"] - df["cost_of_goods_sold"]
